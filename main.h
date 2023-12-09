@@ -23,6 +23,7 @@ extern char **environ;
 typedef int64_t custom_time_t;
 
 /* The function prototypes are included here */
+void shell_init();
 int dollar_sign();
 size_t _strlen(const char *str);
 int _strncmp(const char *s1, const char *s2, size_t n);

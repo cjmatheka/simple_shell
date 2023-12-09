@@ -13,6 +13,7 @@ void shell_init()
     time_t current_time;
     struct tm *local_time;
 
+    /* Print information about the shell */
     _printstr("\n\n\n\n******************"
            "************************");
     _printstr("\n\n\n\t****A VERY SIMPLE SHELL****");
@@ -21,7 +22,8 @@ void shell_init()
            "***********************");
 
     /* Retrieve the username using getenv("USER") */
-    username = getenv("USER");
+    username = _getenv("USER");
+
     write(STDOUT_FILENO, "\n\n\nUSER is: @", 13);
     write(STDOUT_FILENO, username, _strlen(username));
     write(STDOUT_FILENO, "\n", 1);
@@ -29,5 +31,6 @@ void shell_init()
     /* Pause for 1 second */
     sleep(1);
 
+    /* clear the terminal */
     _clear();
 }

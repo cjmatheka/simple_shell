@@ -7,14 +7,15 @@
 
 int ss_main()
 {
-    /* Clear the terminal screen */
+    /* Shell startup: Greet the user, clear the terminal, then start with $ sign */
+    shell_init();
     _clear();
-
-    /* printing the $ sign */
     dollar_sign();
-
-    /* ensure the prompt is clearly visible */
     fflush(stdout);
+
+
+
+
 
     return (0);
 }
