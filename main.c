@@ -8,6 +8,7 @@
  */
 int main(int argc, char *argv[])
 {
+	void input_controller;
 	int a = 1;
 		char *line = NULL;
 		char *input = argv[0];
