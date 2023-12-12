@@ -3,6 +3,8 @@
 
 /* Defining the clear function */
 #define _clear() write(STDOUT_FILENO, "\033[H\033[J", 7)
+#define MAX_COMMAND_LENGTH 100
+
 
 /* The library/header files are included here */
 #include <stdin.h>
@@ -32,5 +34,6 @@ int _putchar(char c);
 char *_getenv(const char *name);
 void _printstr(const char *str);
 time_t _time(time_t *tloc);
+void _shellexit(int exit_status);
 
 #endif
