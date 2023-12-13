@@ -13,7 +13,7 @@ void shell_init()
     time_t current_time;
     struct tm *local_time;
 
-    /* Print information about the shell */
+    /* Step 1: Print information about the shell */
     _printstr("\n\n\n\n******************"
            "************************");
     _printstr("\n\n\n\t****A VERY SIMPLE SHELL****");
@@ -21,7 +21,7 @@ void shell_init()
     _printstr("\n\n\n\n*******************"
            "***********************");
 
-    /* Retrieve the username using getenv("USER") */
+    /* Step 2: Retrieve the username using getenv("USER") */
     username = _getenv("USER");
 
     write(STDOUT_FILENO, "\n\n\nUSER is: @", 13);
