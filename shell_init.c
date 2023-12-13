@@ -23,7 +23,7 @@ void shell_init()
            "***********************");
 
     /* Step 2: Retrieve the username using getenv("USER") */
-    username = getenv("USER");
+    username = _getenv("USER");
 
     if (username != NULL)
     {
