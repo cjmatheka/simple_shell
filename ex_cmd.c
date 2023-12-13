@@ -6,53 +6,36 @@
 
 void exeCmds(char **commands)
 {
-    char *token;
-    const char delimiter[2] = " ";
-    int i;
     pid_t child_pid;
-    char *argv[MAX_ARGS];
-    int argCount;
+    int i;
 
     /* Iterate through the commands */
     for (i = 0; commands[i] != NULL; i++)
     {
-        token = strtok(commands[i], delimiter);
+        /* Execute the command in the child process */
+        child_pid = fork();
 
-        while (token != NULL)
+        if (child_pid == 0)
         {
-            /* Execute each token (command) in the child process */
-            child_pid = fork();
+            /* This code runs in the child process */
+            execve(commands[i], commands, environ);
 
-            if (child_pid == 0)
+            /* If execve fails */
+            perror("execve");
+            exit(EXIT_FAILURE);
+        }
+        else if (child_pid < 0)
+        {
+            perror("fork");
+        }
+        else
+        {
+            /* waits for child to finish, then runs in the parent process */
+            if (waitpid(child_pid, NULL, 0) == -1)
             {
-                argCount = 0;
-
-                /* Split the command into an array of arguments */
-                do
-                {
-                    argv[argCount++] = token;
-                    token = strtok(NULL, delimiter);
-                } while (token != NULL && argCount < MAX_ARGS - 1);
-
-                argv[argCount] = NULL;
-
-                /* This code runs in the child process */
-                execve(argv[0], argv, environ);
-
-                /* If execlp fails */
-                perror("execve");
-                exit(EXIT_FAILURE);
+                perror("waitpid");
             }
-            else if (child_pid < 0)
-            {
-                perror("fork");
-            }
-            else
-            {
-                /* waits for child to finish, then runs in parent process */
-                waitpid(child_pid, NULL, 0);
-            }
-            token = strtok(NULL, delimiter);
         }
     }
 }
+
