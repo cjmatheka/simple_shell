@@ -6,21 +6,29 @@
  * Return: Token,
 */
 
-char** processInput(char *line) {
+char** processInput(char *line)
+{
+    /* Declare variables needed */
+    char *token;
+    char **tokens;
+    int count;
+
     /*Remove the newline character at the end */
-    line[strcspn(line, "\n")] = '\0';
+    line[_strcspn(line, "\n")] = '\0';
 
     /* Tokenize the input line to extract words */
-    char *token = strtok(line, " ");
+    token = strtok(line, " ");
 
-    if (token == NULL) {
+    if (token == NULL)
+    {
         /* No command entered, return NULL */
-        return NULL;
+        return (NULL);
     }
 
     /* Allocate an array to store tokens */
-    char **tokens = malloc(sizeof(char*));
-    if (tokens == NULL) {
+    tokens = malloc(sizeof(char*));
+    if (tokens == NULL)
+    {
         perror("malloc");
         exit(EXIT_FAILURE);
     }
@@ -29,10 +37,12 @@ char** processInput(char *line) {
     tokens[0] = strdup(token);
 
     /* Continue tokenizing and copying the rest of the tokens */
-    int count = 1;
-    while ((token = strtok(NULL, " ")) != NULL) {
+    count = 1;
+    while ((token = strtok(NULL, " ")) != NULL)
+    {
         tokens = realloc(tokens, (count + 1) * sizeof(char*));
-        if (tokens == NULL) {
+        if (tokens == NULL)
+        {
             perror("realloc");
             exit(EXIT_FAILURE);
         }
@@ -43,12 +53,13 @@ char** processInput(char *line) {
 
     /* Add a NULL pointer at the end to indicate the end of the array */
     tokens = realloc(tokens, (count + 1) * sizeof(char*));
-    if (tokens == NULL) {
+    if (tokens == NULL)
+    {
         perror("realloc");
         exit(EXIT_FAILURE);
     }
     tokens[count] = NULL;
 
     /* Return the array of tokens */
-    return tokens;
+    return (tokens);
 }

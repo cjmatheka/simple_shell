@@ -5,51 +5,58 @@
  * for use by the operating system
 */
 
-int ss_main()
+int main()
 {
-    /* Declare variables to use in the program */
+    int i;
+    char** commands, *line;
+    size_t len;
     ssize_t read;
-    char *line = NULL;
-    size_t len = 0;
-    pid_t pid;
-    char *token;
+
+    /* Shell startup */
+    shell_init();
 
     while (1)
     {
-        /* Shell startup: Greet the user, then clear the terminal */
-        shell_init();
-        _clear();
-
-        /* Start by printing $ sign into stdout */
+        /* Print $ */
         dollar_sign();
         fflush(stdout);
 
-        /* Deal with user input - Use getline to read a line from stdin */
+        /* Deal with user input */
+        line = NULL;
+        len = 0;
         read = getline(&line, &len, stdin);
 
         if (read != -1)
         {
-            /* Process the user input (in this case, just printing it) */
-            /**
-             * tokenization,
-             *
-             */
-            printf("You entered: %s", line);
+            /* Process the user input */
+            line[strcspn(line, "\n")] = '\0';
+            commands = processInput(line);
+
+            /* Check if commands have been added */
+            if (commands == NULL)
+            {
+                break;
+            }
+
+            /* Execute the commands */
+            exeCmds(commands);
+
+            /* Free the memory for commands */
+            for (i = 0; commands[i] != NULL; i++)
+            {
+                free(commands[i]);
+            }
+            free(commands);
         }
         else
         {
             perror("getline");
         }
-        command = pwd;
-        if (command != '\0')
-        {
-            pid = fork()
-                    // call getcwd () function to achieve what the user requested
-        }
 
-        /* Free the dynamically allocated memory */
+        /* Free dynamically allocated memory */
         free(line);
-
-        return (0);
     }
+
+    /* This point is reached only when the user wants to exit the shell */
+    return 0;
 }

@@ -14,15 +14,11 @@ int _strncmp(const char *s1, const char *s2, size_t n)
     size_t i;
 
     /* iterate through the strings and copy */
-    for (i = 0; i < n; i++)
+    for (i = 0; i < n && (s1[i] != '\0' || s2[i] != '\0'); i++)
     {
         if (s1[i] != s2[i])
         {
             return ((s1[i] < s2[i]) ? -1 : 1);
-        }
-        if (s1[i] == '\0' || s2[i] == '\0')
-        {
-            break;
         }
     }
     /* Return 0 if both are equal */

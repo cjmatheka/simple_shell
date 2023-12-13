@@ -6,16 +6,16 @@
  */
 void _shellexit(int exit_status)
 {
-	if(exit_stutus == 1)
+	if(exit_status == 1)
 	{
 		printf("exiting is unsuccessful!!... \n");
-		//unsuccessful simulation for exit
+		/* unsuccessful simulation for exit */
 		exit (1);
 	}
 	else
 	{
 		printf("You're now exiting charles' and ruth's shell!...\n");
-		//successful simulatin for exit
+		/*successful simulation for exit */
 		exit (0);
 	}
 }

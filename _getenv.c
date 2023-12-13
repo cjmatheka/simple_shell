@@ -11,14 +11,15 @@ char *_getenv(const char *name)
     /* declare local variables */
     char **env;
 
-    if (name == NULL)
+    if (name == NULL || environ == NULL)
     {
         /* Invalid input*/
-        return NULL;
+        return (NULL);
     }
 
     /* Iterate through the environment variables */
-    for (env = environ; *env != NULL; env++) {
+    for (env = environ; *env != NULL; env++)
+    {
         if (_strncmp(*env, name, _strlen(name)) == 0 && (*env)[_strlen(name)] == '=')
         {
             /* Found the environment variable */
