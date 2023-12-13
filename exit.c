@@ -6,7 +6,7 @@
  */
 void _shellexit(int exit_status)
 {
-	if(exit_stutus == 1)
+	if(exit_status == 1)
 	{
 		printf("exiting is unsuccessful!!... \n");
 		//unsuccessful simulation for exit
