@@ -9,12 +9,16 @@ int dollar_sign()
 {
     /* Declare the prompt for holding the $ sign for printing to out put */
     char prompt;
+    char *username;
 
     /* initialize the prompt to hold the dollar sign */
-    prompt = '$';
+    prompt = '#';
+    username = _getenv("USER");
 
-    /* print the $ sign to standard output */
+    /* print the username and $ sign to standard output */
+    write(STDOUT_FILENO, username, _strlen(username));
     write(STDOUT_FILENO, &prompt, 1);
+    write(STDOUT_FILENO, " ", 1);
 
     /* return 0 on success */
     return (0);

@@ -8,6 +8,7 @@
 
 
 /* The library/header files are included here */
+#define _GNU_SOURCE
 #include<errno.h>
 #include<stdio.h>
 #include<string.h>
@@ -15,6 +16,7 @@
 #include<unistd.h>
 #include<stddef.h>
 #include<time.h>
+#include <dirent.h>
 #include<sys/types.h>
 #include <inttypes.h>
 #include<sys/wait.h>
@@ -39,5 +41,11 @@ void exeCmds(char **commands);
 void _strcpy(char *dest, const char *src);
 void free_string(char *str1);
 char *_strdup(const char *str1);
+int _strcmp(const char *s1, const char *s2);
+void _ls(const char *path);
+void _pwd();
+void clearTerminal();
+void _cd(const char *path);
+void exitTerminal();
 
 #endif

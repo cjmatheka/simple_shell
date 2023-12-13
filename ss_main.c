@@ -29,7 +29,7 @@ int main()
         if (read != -1)
         {
             /* Process the user input */
-            line[strcspn(line, "\n")] = '\0';
+            line[_strcspn(line, "\n")] = '\0';
             commands = processInput(line);
 
             /* Check if commands have been added */
