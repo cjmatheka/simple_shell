@@ -36,7 +36,6 @@ void exeCmds(char **commands) {
             else if (_strcmp(commands[i], "exit") == 0)
             {
                 exitTerminal();
-                exit(EXIT_SUCCESS);
             }
             else
             {

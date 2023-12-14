@@ -8,7 +8,6 @@
 
 
 /* The library/header files are included here */
-#define _GNU_SOURCE
 #include<errno.h>
 #include<stdio.h>
 #include<string.h>

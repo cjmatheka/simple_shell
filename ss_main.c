@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
-* ss_main - takes arguments from user and interprets it
+* main - takes arguments from user and interprets it
  * for use by the operating system
 */
 

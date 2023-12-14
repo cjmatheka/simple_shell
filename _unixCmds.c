@@ -18,10 +18,16 @@ void _ls(const char *path)
         return;
     }
 
-    while ((entry = readdir(dir)) != NULL) {
-        printf("%s\n", entry->d_name);
+    while ((entry = readdir(dir)) != NULL)
+    {
+        if (entry->d_name[0] != '.')
+        {
+            write(STDOUT_FILENO, entry->d_name, strlen(entry->d_name));
+            write(STDOUT_FILENO, " ", 1);
+        }
     }
     closedir(dir);
+    write(STDOUT_FILENO, "\n", 1);
 }
 
 
@@ -83,9 +89,6 @@ void _cd(const char *path)
 
 void exitTerminal()
 {
-    const char *message;
-    message = "Exiting the shell.....\n";
 
-    write(STDOUT_FILENO, message, strlen(message));
     exit(EXIT_SUCCESS);
 }
