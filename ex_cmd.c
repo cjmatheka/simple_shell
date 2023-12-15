@@ -21,6 +21,17 @@ void exeCmds(char **commands)
 			{
 				_ls(".");
 			}
+			else if (_strcmp(commands[i], "cd") == 0)
+			{
+				if (i > 1)
+				{
+					_cd(commands[1]);
+				}
+				else
+				{
+					_cd(".");
+				}
+			}
 			else if (_strcmp(commands[i], "pwd") == 0)
 			{
 				_pwd();

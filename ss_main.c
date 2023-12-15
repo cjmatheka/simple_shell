@@ -41,7 +41,8 @@ int main(void)
 		}
 		else
 		{
-			perror("getline");
+			write(STDOUT_FILENO, "\n", 1);
+			break;
 		}
 		free(line);
 	}
