@@ -5,11 +5,9 @@
  * @commands: Commands to execute,
 */
 
-size_t MAX_LENGTH = 256;
-
 void exeCmds(char **commands)
 {
-	int i;
+	int j, i;
 	char *path;
 
 	path = (char *)malloc(MAX_LENGTH);
@@ -37,7 +35,15 @@ void exeCmds(char **commands)
 		}
 		else if (_strcmp(commands[i], "echo") == 0)
 		{
-			_echoPrint(".");
+			for (j = i + 1; commands[j] != NULL; j++)
+			{
+				write(STDOUT_FILENO, commands[j], strlen(commands[j]));
+				if (commands[j + 1] != NULL)
+				{
+					write(STDOUT_FILENO, " ", 1);
+				}
+			}
+			write(STDOUT_FILENO, "\n", 1);
 		}
 		else if (strcmp(commands[i], "cd") == 0)
 		{
@@ -56,6 +62,10 @@ void exeCmds(char **commands)
 		else if (strcmp(commands[i], "pwd") == 0)
 		{
 			_pwd();
+		}
+		else if (strcmp(commands[i], "env") == 0)
+		{
+			_env();
 		}
 		else if (strcmp(commands[i], "clear") == 0)
 		{

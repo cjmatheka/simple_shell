@@ -5,6 +5,8 @@
 #define _clear() write(STDOUT_FILENO, "\033[H\033[J", 7)
 #define MAX_COMMAND_LENGTH 100
 #define MAX_ARGS 100
+#define MAX_LENGTH 1000
+
 
 /* The library/header files are included here */
 #include<errno.h>
@@ -50,5 +52,6 @@ void _cd(const char *path);
 void exitTerminal(void);
 void waitHelper(pid_t child_pid);
 void _echoPrint(const char *msg);
+void _env();
 
 #endif
