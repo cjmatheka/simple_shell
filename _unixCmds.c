@@ -35,7 +35,7 @@ void _ls(const char *path)
  * _pwd - prints current working directory,
  */
 
-void _pwd()
+void _pwd(void)
 {
     char cwd[1024];
 
@@ -55,7 +55,7 @@ void _pwd()
  * clearTerminal - clears the terminal
  */
 
-void clearTerminal()
+void clearTerminal(void)
 {
     /* On Windows */
     #ifdef _WIN32
@@ -87,7 +87,7 @@ void _cd(const char *path)
  * exitTerminal - exits terminal
  */
 
-void exitTerminal()
+void exitTerminal(void)
 {
 
     exit(EXIT_SUCCESS);

@@ -3,15 +3,14 @@
 /**
  * _putchar - prints a character to stdout,
  * @c: The character to be printed out,
- * Return: 0 on success, -1 on failure.
+ * Return: 1 on success, -1 on failure.
  */
 
 int _putchar(char c)
 {
-    if (write(1, &c, 1) == -1)
-    {
-        return (-1);
-    }
-
-    return (1);
+	if (write(1, &c, 1) == -1)
+	{
+		return (-1);
+	}
+	return (1);
 }

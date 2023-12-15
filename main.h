@@ -25,26 +25,28 @@ extern char **environ;
 typedef int64_t custom_time_t;
 
 /* The function prototypes are included here */
-void shell_init();
-int dollar_sign();
+void shell_init(void);
+int dollar_sign(void);
+int freeCmds(char **commands);
 size_t _strlen(const char *str);
 int _strncmp(const char *s1, const char *s2, size_t n);
 int _putchar(char c);
 char *_getenv(const char *name);
 void _printstr(const char *str);
 time_t _time(time_t *tloc);
-void _shellexit(int exit_status);
+void _exitShell(int exit_status);
 size_t _strcspn(const char *str, const char *reject);
-char** processInput(char *line);
+char **processInput(char *line);
 void exeCmds(char **commands);
 void _strcpy(char *dest, const char *src);
 void free_string(char *str1);
 char *_strdup(const char *str1);
 int _strcmp(const char *s1, const char *s2);
 void _ls(const char *path);
-void _pwd();
-void clearTerminal();
+void _pwd(void);
+void clearTerminal(void);
 void _cd(const char *path);
-void exitTerminal();
+void exitTerminal(void);
+void waitHelper(pid_t child_pid);
 
 #endif

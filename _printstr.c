@@ -8,8 +8,9 @@
 
 void _printstr(const char *str)
 {
-    while (*str != '\0') {
-        _putchar(*str);
-        str++;
-    }
+	while (*str != '\0')
+	{
+		_putchar(*str);
+		str++;
+	}
 }

@@ -8,24 +8,24 @@
 
 char *_getenv(const char *name)
 {
-    /* declare local variables */
-    char **env;
+	/* declare local variables */
+	char **env;
 
-    if (name == NULL || environ == NULL)
-    {
-        /* Invalid input*/
-        return (NULL);
-    }
+	if (name == NULL || environ == NULL)
+	{
+		/* Invalid input*/
+		return (NULL);
+	}
 
-    /* Iterate through the environment variables */
-    for (env = environ; *env != NULL; env++)
-    {
-        if (_strncmp(*env, name, _strlen(name)) == 0 && (*env)[_strlen(name)] == '=')
-        {
-            /* Found the environment variable */
-            return (*env + _strlen(name) + 1);
-        }
-    }
-    /* Environmental variable not found */
-    return (NULL);
+	/* Iterate through the environment variables */
+	for (env = environ; *env != NULL; env++)
+	{
+		if (_strncmp(*env, name, _strlen(name)) == 0 && (*env)[_strlen(name)] == '=')
+		{
+			/* Found the environment variable */
+			return (*env + _strlen(name) + 1);
+		}
+	}
+	/* Environmental variable not found */
+	return (NULL);
 }

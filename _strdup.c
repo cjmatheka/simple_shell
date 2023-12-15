@@ -8,24 +8,23 @@
 
 char *_strdup(const char *str1)
 {
-    size_t len;
-    char *str2;
+	size_t len;
+	char *str2;
 
-    if (str1 == NULL)
-    {
-        return (NULL);
-    }
+	if (str1 == NULL)
+	{
+		return (NULL);
+	}
 
-    /* calculate length of string */
-    len = _strlen(str1);
-    str2 = (char*) malloc((len + 1) * sizeof(char));
+	/* calculate length of string */
+	len = _strlen(str1);
+	str2 = (char *) malloc((len + 1) * sizeof(char));
 
-    if (str2 != NULL)
-    {
-        _strcpy(str2, str1);
-    }
-
-    return (str2);
+	if (str2 != NULL)
+	{
+		_strcpy(str2, str1);
+	}
+	return (str2);
 }
 
 /**
@@ -35,5 +34,6 @@ char *_strdup(const char *str1)
 
 void free_string(char *str1)
 {
-    free(str1);
+	free(str1);
 }
+
