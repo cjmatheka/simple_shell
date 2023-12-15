@@ -6,7 +6,6 @@
 #define MAX_COMMAND_LENGTH 100
 #define MAX_ARGS 100
 
-
 /* The library/header files are included here */
 #include<errno.h>
 #include<stdio.h>
@@ -14,8 +13,10 @@
 #include<stdlib.h>
 #include<unistd.h>
 #include<stddef.h>
+#include <stdarg.h>
 #include<time.h>
 #include <dirent.h>
+#include <sys/stat.h>
 #include<sys/types.h>
 #include <inttypes.h>
 #include<sys/wait.h>
@@ -48,5 +49,6 @@ void clearTerminal(void);
 void _cd(const char *path);
 void exitTerminal(void);
 void waitHelper(pid_t child_pid);
+void _echoPrint(const char *msg);
 
 #endif

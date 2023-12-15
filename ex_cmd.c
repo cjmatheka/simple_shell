@@ -5,58 +5,92 @@
  * @commands: Commands to execute,
 */
 
+size_t MAX_LENGTH = 256;
+
 void exeCmds(char **commands)
 {
-    int i;
+	int i;
+	char *path;
 
-    for (i = 0; commands[i] != NULL; i++)
-    {
-        if (_strcmp(commands[i], "ls") == 0)
+	path = (char *)malloc(MAX_LENGTH);
+	if (path == NULL)
 	{
-            _ls(".");
-        }
-	else if (_strcmp(commands[i], "cd") == 0)
-	{
-            if (i > 1)
-	    {
-                _cd(commands[1]);
-            } else {
-                _cd(".");
-            }
-        }
-	else if (_strcmp(commands[i], "pwd") == 0)
-	{
-            _pwd();
-        }
-	else if (_strcmp(commands[i], "clear") == 0)
-	{
-            clearTerminal();
-        } else if (_strcmp(commands[i], "exit") == 0 || _strcmp(commands[i], "quit") == 0)
-	{
-            exit(0);
-        }
-	else
-	{
-            pid_t child_pid = fork();
+		perror("malloc");
+		exit(EXIT_FAILURE);
+	}
 
-            if (child_pid == 0)
-	    {
-                /* Child process */
-                execve(commands[i], commands, environ);
-                perror("execve"); /* If execve fails */
-                exit(EXIT_FAILURE);
-            }
-	    else if (child_pid < 0)
-	    {
-                perror("fork");
-            }
-	    else
-	    {
-                /* Parent process */
-                waitHelper(child_pid); /* waits for child */
-            }
-        }
-    }
+	for (i = 0; commands[i] != NULL; i++)
+	{
+		if (_strcmp(commands[i], "ls") == 0)
+		{
+			if (commands[i + 1] != NULL)
+			{
+				_strcpy(path, commands[i + 1]);
+				_ls(path);
+				/* Skip the next argument since it's the path */
+				i++;
+			} else
+			{
+				/* Use current directory if no path is provided */
+				_ls(".");
+			}
+		}
+		else if (_strcmp(commands[i], "echo") == 0)
+		{
+			_echoPrint(".");
+		}
+		else if (strcmp(commands[i], "cd") == 0)
+		{
+			if (commands[i + 1] != NULL)
+			{
+				_strcpy(path, commands[i + 1]);
+				_cd(path);
+				/* Skip the next argument since it's the path */
+				i++;
+			}
+			else
+			{
+				_cd(".");
+			}
+		}
+		else if (strcmp(commands[i], "pwd") == 0)
+		{
+			_pwd();
+		}
+		else if (strcmp(commands[i], "clear") == 0)
+		{
+			clearTerminal();
+		}
+		else if (strcmp(commands[i], "exit") == 0 || strcmp(commands[i], "quit") == 0)
+		{
+			free(path); /* Release allocated memory */
+			exit(0);
+		}
+		else
+		{
+			pid_t child_pid = fork();
+
+			if (child_pid == 0)
+			{
+				/* Child process */
+				execvp(commands[i], commands);
+				/* If execvp fails */
+				perror("execvp");
+				exit(EXIT_FAILURE);
+			}
+			else if (child_pid < 0)
+			{
+				perror("fork");
+			}
+			else
+			{
+				/* Parent process waits for child process */
+				waitpid(child_pid, NULL, 0);
+			}
+		}
+	}
+	/* Release allocated memory */
+	free(path);
 }
 
 

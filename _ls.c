@@ -13,7 +13,7 @@ void _ls(const char *path)
 	dir = opendir(path);
 	if (dir == NULL)
 	{
-		perror("opendir");
+		perror("Unable to open directory");
 		return;
 	}
 
@@ -21,10 +21,12 @@ void _ls(const char *path)
 	{
 		if (entry->d_name[0] != '.')
 		{
-			write(STDOUT_FILENO, entry->d_name, strlen(entry->d_name));
+			/* If it's a file, print its name */
+			write(STDOUT_FILENO, entry->d_name, _strlen(entry->d_name));
 			write(STDOUT_FILENO, " ", 1);
 		}
 	}
-	closedir(dir);
 	write(STDOUT_FILENO, "\n", 1);
+	closedir(dir);
 }
+
