@@ -9,6 +9,8 @@ void exeCmds(char **commands)
 {
 	int j, i;
 	char *path;
+	const char *options = NULL;
+	const char *filename;
 
 	path = (char *)malloc(MAX_LENGTH);
 	if (path == NULL)
@@ -24,13 +26,13 @@ void exeCmds(char **commands)
 			if (commands[i + 1] != NULL)
 			{
 				_strcpy(path, commands[i + 1]);
-				_ls(path);
+				_ls(path, options);
 				/* Skip the next argument since it's the path */
 				i++;
 			} else
 			{
 				/* Use current directory if no path is provided */
-				_ls(".");
+				_ls(".", options);
 			}
 		}
 		else if (_strcmp(commands[i], "echo") == 0)
@@ -63,6 +65,20 @@ void exeCmds(char **commands)
 		{
 			_pwd();
 		}
+		else if (strcmp(commands[i], "cat") == 0)
+		{
+			if (commands[i + 1] != NULL)
+			{
+				filename = commands[i + 1];
+				_cat(filename);
+				/* Skip the next argument since it's the filename */
+				i++;
+			}
+			else
+			{
+				write(STDERR_FILENO, "File error", 11);
+			}
+		}
 		else if (strcmp(commands[i], "env") == 0)
 		{
 			_env();
@@ -83,9 +99,9 @@ void exeCmds(char **commands)
 			if (child_pid == 0)
 			{
 				/* Child process */
-				execvp(commands[i], commands);
+				execve(commands[i], commands, NULL);
 				/* If execvp fails */
-				perror("execvp");
+				perror("execve");
 				exit(EXIT_FAILURE);
 			}
 			else if (child_pid < 0)

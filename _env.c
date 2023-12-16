@@ -9,7 +9,7 @@ void _env()
     char **env_ptr;
     ssize_t len;
 
-    env_ptr= environ;
+    env_ptr = environ;
 
     while (*env_ptr != NULL)
     {

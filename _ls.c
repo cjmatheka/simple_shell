@@ -5,28 +5,35 @@
  * @path: path to directory
  */
 
-void _ls(const char *path)
+void _ls(const char *path, const char *options)
 {
-	DIR *dir;
-	struct dirent *entry;
+    pid_t child_pid = fork();
+    char *cmd;
+    char *args[] = {"ls", NULL, NULL, NULL, NULL};
 
-	dir = opendir(path);
-	if (dir == NULL)
-	{
-		perror("Unable to open directory");
-		return;
-	}
+    if (child_pid == 0)
+    {
+        /* Child process */
+        cmd = "/usr/bin/ls";
+        args[1] = (char *)path;
 
-	while ((entry = readdir(dir)) != NULL)
+	if (options != NULL)
 	{
-		if (entry->d_name[0] != '.')
-		{
-			/* If it's a file, print its name */
-			write(STDOUT_FILENO, entry->d_name, _strlen(entry->d_name));
-			write(STDOUT_FILENO, " ", 1);
-		}
-	}
-	write(STDOUT_FILENO, "\n", 1);
-	closedir(dir);
+            args[2] = (char *)options;
+        }
+
+        execve(cmd, args, environ);
+        perror("execve"); /* If execve fails */
+        exit(EXIT_FAILURE);
+    }
+    else if (child_pid < 0)
+    {
+        perror("fork");
+    }
+    else
+    {
+        /* Parent process */
+        waitpid(child_pid, NULL, 0); /* waits for child */
+    }
 }
 

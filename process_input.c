@@ -11,9 +11,9 @@ char **processInput(char *line)
 	char *token, **tokens;
 	int count;
 
-	/*Remove the newline character et the end, tokenize, then allocate memory */
+	/*Remove the newline character at the end, tokenize, then allocate memory */
 	line[_strcspn(line, "\n")] = '\0';
-	token = strtok(line, " ");
+	token = _strtok(line, " ");
 	if (token == NULL)
 	{
 		return (NULL);
@@ -21,13 +21,13 @@ char **processInput(char *line)
 	tokens = malloc(sizeof(char *));
 	if (tokens == NULL)
 	{
-		perror("malloc");
+		perror("Unable to allocate memory");
 		exit(EXIT_FAILURE);
 	}
 	/* Copy the first token (command) to the array, then the rest */
-	tokens[0] = strdup(token);
+	tokens[0] = _strdup(token);
 	count = 1;
-	while ((token = strtok(NULL, " ")) != NULL)
+	while ((token = _strtok(NULL, " ")) != NULL)
 	{
 		tokens = realloc(tokens, (count + 1) * sizeof(char *));
 		if (tokens == NULL)
@@ -35,7 +35,7 @@ char **processInput(char *line)
 			perror("realloc");
 			exit(EXIT_FAILURE);
 		}
-		tokens[count] = strdup(token);
+		tokens[count] = _strdup(token);
 		count++;
 	}
 	/* Add a NULL pointer at the end to indicate the end of the array */

@@ -6,11 +6,14 @@
  * Return: ) on success.
 */
 
-int main(void)
+int main(int argc, char **argv)
 {
 	char **commands, *line;
 	size_t len;
 	ssize_t read;
+
+	/* declaring void variables */
+	(void)argc; (void)argv;
 
 	/* Shell startup and use */
 	shell_init();
@@ -42,7 +45,7 @@ int main(void)
 		else
 		{
 			write(STDOUT_FILENO, "\n", 1);
-			break;
+			return (-1);
 		}
 		free(line);
 	}
