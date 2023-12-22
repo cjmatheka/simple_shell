@@ -6,7 +6,8 @@
 #define MAX_COMMAND_LENGTH 100
 #define MAX_ARGS 100
 #define MAX_LENGTH 1000
-
+#define MAX_COMMAND_LENGTH 100
+#define MAX_PATH_LENGTH 1000
 
 /* The library/header files are included here */
 #include<errno.h>
@@ -24,6 +25,7 @@
 #include<sys/wait.h>
 #include <fcntl.h>
 #include <sys/types.h>
+#include <ftw.h>
 
 /* Declaring global variables */
 extern char **environ;
@@ -32,6 +34,7 @@ typedef int64_t custom_time_t;
 /* The function prototypes are included here */
 void shell_init(void);
 int dollar_sign(void);
+void _chmod(const char *file_path, mode_t permission);
 int freeCmds(char **commands);
 size_t _strlen(const char *str);
 int _strncmp(const char *s1, const char *s2, size_t n);
@@ -57,5 +60,9 @@ void _echoPrint(const char *msg);
 void _env();
 void _cat(const char *input);
 char *_strtok(char *str, const char *delimiters);
+char *fpath(const char *command, const char *path);
+void executeCommands(char *line);
+void handleCommand(char *cmdLine);
+void wait4child();
 
 #endif

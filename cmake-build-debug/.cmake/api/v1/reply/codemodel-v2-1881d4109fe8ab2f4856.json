@@ -1,0 +1,60 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.26"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "Simple_Shell",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "Simple_Shell::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Simple_Shell-Debug-6de1acc10cba2c77bbc6.json",
+					"name" : "Simple_Shell",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/charles4data/Desktop/Tech ALX Africa - Software Engineering/Software Engineering Bootcamp/C Programming/0x16. C - Simple Shell/Simple Shell/cmake-build-debug",
+		"source" : "C:/Users/charles4data/Desktop/Tech ALX Africa - Software Engineering/Software Engineering Bootcamp/C Programming/0x16. C - Simple Shell/Simple Shell"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 5
+	}
+}

@@ -6,48 +6,36 @@
  * Return: ) on success.
 */
 
-int main(int argc, char **argv)
+int main()
 {
-	char **commands, *line;
-	size_t len;
-	ssize_t read;
+    char *line;
+    size_t len;
+    ssize_t read;
 
-	/* declaring void variables */
-	(void)argc; (void)argv;
+    shell_init();
+    while (1)
+    {
+        dollar_sign();
+        fflush(stdout);
 
-	/* Shell startup and use */
-	shell_init();
-	while (1)
+        line = NULL;
+        len = 0;
+        read = getline(&line, &len, stdin);
+
+        if (read != -1)
 	{
-		/* Print $ */
-		dollar_sign();
-		fflush(stdout);
+            line[strcspn(line, "\n")] = '\0';
 
-		/* Deal with user input */
-		line = NULL, len = 0, read = getline(&line, &len, stdin);
+            executeCommands(line);
+        }
+	else
+	{
+            write(STDOUT_FILENO, "\nExiting Shell\n", 15);
+            break;
+        }
 
-		if (read != -1)
-		{
-			/* Process the user input */
-			line[_strcspn(line, "\n")] = '\0';
-			commands = processInput(line);
+        free(line);
+    }
 
-			/* Check if commands have been added */
-			if (commands == NULL)
-			{
-				break;
-			}
-			/* Execute the commands then free memory */
-			exeCmds(commands);
-			freeCmds(commands);
-			free(commands);
-		}
-		else
-		{
-			write(STDOUT_FILENO, "\n", 1);
-			return (-1);
-		}
-		free(line);
-	}
-	return (0);
+    return 0;
 }

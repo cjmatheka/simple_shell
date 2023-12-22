@@ -12,10 +12,10 @@ void shell_init(void)
 	/* Clear terminal */
 	_clear();
 	/* Step 1: Print information about the shell */
-	_printstr("\n\n\n\n******************************************");
-	_printstr("\n\n\n\t****A VERY SIMPLE SHELL****");
+	_printstr("\n\n\n\n************************************************");
+	_printstr("\n\n\n\t*********MAOSH SHELL********");
 	_printstr("\n\n\t- CREATED BY JULIUS AND RUTH, USE AS YOU MAY");
-	_printstr("\n\n\n\n******************************************");
+	_printstr("\n\n\n\n*************************************************");
 
 	/* Step 2: Retrieve the username using getenv("USER") */
 	username = _getenv("USER");
@@ -53,4 +53,31 @@ void shell_init(void)
 	/* Pause for 1 second then clear terminal */
 	sleep(1);
 	_clear();
+}
+
+
+/**
+* dollar_sign - prints the dollar sign to stdout,
+ * Return: 0 on success.
+*/
+
+int dollar_sign(void)
+{
+	/* Declare the prompt for holding the $ sign for printing to out put */
+	char prompt, *username;
+
+	/* initialize the prompt to hold the dollar sign */
+	prompt = '$';
+	username = _getenv("USER");
+
+
+	/* print the username and $ sign to standard output */
+	write(STDOUT_FILENO, "#", 1);
+	write(STDOUT_FILENO, username, _strlen(username));
+	write(STDOUT_FILENO, "@maossh", 7);
+	write(STDOUT_FILENO, &prompt, 1);
+	write(STDOUT_FILENO, " ", 1);
+
+	/* return 0 on success */
+	return (0);
 }
