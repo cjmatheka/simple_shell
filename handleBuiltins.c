@@ -2,7 +2,7 @@
 
 /**
 * handleBuiltins - handles builtin functions
- * @tokens - command and its parameters,
+ * @tokens: command and its parameters,
 */
 
 void handleBuiltins(char **tokens)
@@ -14,27 +14,18 @@ void handleBuiltins(char **tokens)
 	if (_strcmp(tokens[0], "cd") == 0)
 	{
 		if (tokens[1] != NULL)
-		{
 			chdir(tokens[1]);
-		}
-		else
-		{
-			chdir(".");
-		}
+		chdir(".");
 	}
 	else if (_strcmp(tokens[0], "pwd") == 0)
 	{
 		if (getcwd(cwd, sizeof(cwd)) != NULL)
 			printf("%s\n", cwd);
-		else
-		{
-			perror("Could not print working directory");
-		}
+		perror("Could not print working directory");
+
 	}
 	else if (_strcmp(tokens[0], "clear") == 0)
-	{
 		system("clear");
-	}
 	else if (_strcmp(tokens[0], "env") == 0)
 	{
 		env = environ;

@@ -6,7 +6,7 @@
  * Return: ) on success.
 */
 
-int main()
+int main(void)
 {
 	char *line;
 	size_t len;
