@@ -11,17 +11,11 @@ void shell_init(void)
 
 	/* Clear terminal */
 	_clear();
-	/* Step 1: Print information about the shell */
-	printf("\n\n\n\n************************************************");
-	printf("\n\n\n\t*********MAOSH SHELL********");
-	printf("\n\n\t- CREATED BY JULIUS AND RUTH, USE AS YOU MAY");
-	printf("\n\n\n\n*************************************************");
 
 	/* Step 2: Retrieve the username using getenv("USER") */
 	username = _getenv("USER");
 	if (username != NULL)
 	{
-		write(STDOUT_FILENO, "\n\n\nUSER is: @", 13);
 		write(STDOUT_FILENO, username, _strlen(username));
 		write(STDOUT_FILENO, "\n", 1);
 	}
@@ -72,7 +66,6 @@ int dollar_sign(void)
 
 
 	/* print the username and $ sign to standard output */
-	write(STDOUT_FILENO, "#", 1);
 	write(STDOUT_FILENO, username, _strlen(username));
 	write(STDOUT_FILENO, "@maossh", 7);
 	write(STDOUT_FILENO, &prompt, 1);

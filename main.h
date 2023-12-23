@@ -8,6 +8,8 @@
 #define MAX_LENGTH 1000
 #define MAX_COMMAND_LENGTH 100
 #define MAX_PATH_LENGTH 1000
+#define MAX_TOKENS 100
+
 
 /* The library/header files are included here */
 #include<errno.h>
@@ -60,9 +62,11 @@ void _echoPrint(const char *msg);
 void _env();
 void _cat(const char *input);
 char *_strtok(char *str, const char *delimiters);
-char *fpath(const char *command, const char *path);
 void executeCommands(char *line);
 void handleCommand(char *cmdLine);
 void wait4child();
+int cmdExists(const char *command);
+void handleBuiltins(char *line);
+void handleExternals(char **tokens);
 
 #endif
