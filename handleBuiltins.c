@@ -25,7 +25,9 @@ void handleBuiltins(char **tokens)
 
 	}
 	else if (_strcmp(tokens[0], "clear") == 0)
+	{
 		system("clear");
+	}
 	else if (_strcmp(tokens[0], "env") == 0)
 	{
 		env = environ;
