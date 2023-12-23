@@ -35,7 +35,7 @@ void executeCommands(char *line)
         tokens[count] = _strdup(token);
         count++;
 
-        token = strtok(NULL, " ");
+        token = _strtok(NULL, " ");
     } while (token != NULL);
 
     /* Add a NULL pointer at the end to indicate the end of the array */
@@ -48,7 +48,8 @@ void executeCommands(char *line)
     tokens[count] = NULL;
 
     /* Check if it's a built-in command and use system */
-    if (strcmp(tokens[0], "cd") == 0 || strcmp(tokens[0], "exit") == 0)
+    if (_strcmp(tokens[0], "cd") == 0 || _strcmp(tokens[0], "exit") == 0 ||
+    _strcmp(tokens[0], "pwd") == 0 || _strcmp(tokens[0], "clear") == 0 || _strcmp(tokens[0], "env") == 0)
     {
         int status = system(line);
         if (status == -1)
@@ -56,14 +57,16 @@ void executeCommands(char *line)
             perror("system");
             exit(EXIT_FAILURE);
         }
-    } else {
+    }
+    else
+    {
         /* Fork and execute command */
         pid_t child_pid = fork();
 
         if (child_pid == 0)
 	{
             /* Child process */
-            if (execvp(tokens[0], tokens) == -1)
+            if (execve(tokens[0], tokens, NULL) == -1)
 	    {
                 perror("execvp");
                 exit(EXIT_FAILURE);
