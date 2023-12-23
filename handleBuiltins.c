@@ -2,17 +2,51 @@
 
 /**
 * executeBuiltins - handles builtin functions
+ * @tokens - command and its parameters,
 */
 
-void handleBuiltins(char *line)
+void handleBuiltins(char **tokens)
 {
-	int status;
+	char **env;
+	char cwd[1024];
 
-	status = system(line);
-
-	if (status == -1)
+	/* Check the command and perform the corresponding action */
+	if (_strcmp(tokens[0], "cd") == 0)
 	{
-        perror("system");
-        exit(EXIT_FAILURE);
-    }
+		if (tokens[1] != NULL)
+		{
+			chdir(tokens[1]);
+		}
+		else
+		{
+			chdir(".");
+		}
+	}
+	else if (_strcmp(tokens[0], "pwd") == 0)
+	{
+		if (getcwd(cwd, sizeof(cwd)) != NULL) {
+			printf("%s\n", cwd);
+		}
+		else
+		{
+			perror("Could not print working directory");
+		}
+	}
+	else if (_strcmp(tokens[0], "clear") == 0)
+	{
+		system("clear");
+	}
+	else if (_strcmp(tokens[0], "env") == 0)
+	{
+		env = environ;
+		while (*env != NULL)
+		{
+			printf("%s\n", *env);
+			env++;
+		}
+	}
+	else
+	{
+		printf("Unknown command %s\n", tokens[0]);
+	}
 }

@@ -66,7 +66,8 @@ void executeCommands(char *line);
 void handleCommand(char *cmdLine);
 void wait4child();
 int cmdExists(const char *command);
-void handleBuiltins(char *line);
+void handleBuiltins(char **tokens);
 void handleExternals(char **tokens);
+char** tokenizeInput(char *line);
 
 #endif

@@ -8,34 +8,36 @@
 
 int main()
 {
-    char *line;
-    size_t len;
-    ssize_t read;
+	char *line;
+	size_t len;
+	ssize_t read;
 
-    shell_init();
-    while (1)
-    {
-        dollar_sign();
-        fflush(stdout);
+	shell_init();
 
-        line = NULL;
-        len = 0;
-        read = getline(&line, &len, stdin);
-
-        if (read != -1)
+	while (1)
 	{
-            line[strcspn(line, "\n")] = '\0';
+		dollar_sign();
+		fflush(stdout);
 
-            executeCommands(line);
-        }
-	else
-	{
-            write(STDOUT_FILENO, "\nExiting Shell\n", 15);
-            break;
-        }
+		line = NULL;
+		len = 0;
+		read = getline(&line, &len, stdin);
 
-        free(line);
-    }
+		if (read != -1)
+		{
+			line[strcspn(line, "\n")] = '\0';
 
-    return 0;
+			executeCommands(line);
+		}
+		else
+		{
+			write(STDOUT_FILENO, "\nExiting Shell\n", 15);
+			break;
+		}
+
+		free(line);
+	}
+
+	return (0);
 }
+
