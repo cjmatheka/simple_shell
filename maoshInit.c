@@ -15,10 +15,8 @@ void shell_init(void)
 	/* Step 2: Retrieve the username using getenv("USER") */
 	username = _getenv("USER");
 	if (username != NULL)
-	{
 		write(STDOUT_FILENO, username, _strlen(username));
 		write(STDOUT_FILENO, "\n", 1);
-	}
 	else
 	{
 		/* Prompt the user for a username */
@@ -29,14 +27,12 @@ void shell_init(void)
 			user_input[input_read - 1] = '\0';
 			username = _strdup(user_input);
 			if (username != NULL)
-			{
 				write(STDOUT_FILENO, "\n\n\nUSER is: @", 13);
 				write(STDOUT_FILENO, username, _strlen(username));
 				write(STDOUT_FILENO, "\n", 1);
-			}
 			else
 			{
-				write(STDOUT_FILENO, "\n\n\nUnable to allocate memory for username.\n", 43);
+				write(STDOUT_FILENO, "\n\n\nUnable to allocate\n", 43);
 			}
 		}
 		else
