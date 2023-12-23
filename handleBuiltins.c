@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
-* executeBuiltins - handles builtin functions
+* handleBuiltins - handles builtin functions
  * @tokens - command and its parameters,
 */
 
@@ -24,9 +24,8 @@ void handleBuiltins(char **tokens)
 	}
 	else if (_strcmp(tokens[0], "pwd") == 0)
 	{
-		if (getcwd(cwd, sizeof(cwd)) != NULL) {
+		if (getcwd(cwd, sizeof(cwd)) != NULL)
 			printf("%s\n", cwd);
-		}
 		else
 		{
 			perror("Could not print working directory");
