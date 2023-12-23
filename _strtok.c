@@ -37,8 +37,9 @@ char *_strtok(char *str, const char *delimiters)
 
 	/* replace the delimiter with null character if not end */
 	if (*token != '\0')
+	{
 		*token = '\0';
 		token++;
-
+	}
 	return (start);
 }
