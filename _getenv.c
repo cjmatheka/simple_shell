@@ -20,7 +20,7 @@ char *_getenv(const char *name)
 	/* Iterate through the environment variables */
 	for (env = environ; *env != NULL; env++)
 	{
-		if (_strncmp(*env, name, _strlen(name)) == 0 && (*env)[_strlen(name)] == '=')
+		if (strncmp(*env, name, _strlen(name)) == 0 && (*env)[_strlen(name)] == '=')
 		{
 			/* Found the environment variable */
 			return (*env + _strlen(name) + 1);

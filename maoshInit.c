@@ -12,10 +12,10 @@ void shell_init(void)
 	/* Clear terminal */
 	_clear();
 	/* Step 1: Print information about the shell */
-	_printstr("\n\n\n\n************************************************");
-	_printstr("\n\n\n\t*********MAOSH SHELL********");
-	_printstr("\n\n\t- CREATED BY JULIUS AND RUTH, USE AS YOU MAY");
-	_printstr("\n\n\n\n*************************************************");
+	printf("\n\n\n\n************************************************");
+	printf("\n\n\n\t*********MAOSH SHELL********");
+	printf("\n\n\t- CREATED BY JULIUS AND RUTH, USE AS YOU MAY");
+	printf("\n\n\n\n*************************************************");
 
 	/* Step 2: Retrieve the username using getenv("USER") */
 	username = _getenv("USER");

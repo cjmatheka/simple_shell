@@ -70,7 +70,7 @@ void executeCommands(char *line)
         if (child_pid == 0)
 	{
             /* Child process */
-            if (execve(tokens[0], tokens, NULL) == -1)
+            if (execvp(tokens[0], tokens) == -1)
 	    {
                 perror("execvp");
                 exit(EXIT_FAILURE);
