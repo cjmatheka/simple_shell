@@ -48,7 +48,8 @@ void executeCommands(char *line)
     tokens[count] = NULL;
 
     /* Check if it's a built-in command and use system */
-    if (_strcmp(tokens[0], "cd") == 0 || _strcmp(tokens[0], "pwd") == 0 || _strcmp(tokens[0], "clear") == 0 || _strcmp(tokens[0], "env") == 0)
+    if (_strcmp(tokens[0], "cd") == 0 || _strcmp(tokens[0], "pwd") == 0 || _strcmp(tokens[0], "clear") == 0
+    || _strcmp(tokens[0], "env") == 0)
     {
         int status = system(line);
         if (status == -1)
