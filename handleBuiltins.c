@@ -17,7 +17,7 @@ void handleBuiltins(char **tokens)
 			chdir(tokens[1]);
 		chdir(".");
 	}
-	else if (_strcmp(tokens[0], "ls") == 0)
+	else if (_strcmp(tokens[0], "/bin/ls") == 0)
 	{
 		execve(tokens[0], tokens, environ);
 	}

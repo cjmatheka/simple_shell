@@ -23,13 +23,21 @@ void executeCommands(char *line)
 	{
 		handleBuiltins(tokens);
 	}
-	else if (_strcmp(tokens[0], "/bin/ls") == 0)
-	{
-		system("ls");
-	}
 	else if (_strcmp(tokens[0], "exit") == 0)
 	{
 		exit(EXIT_SUCCESS);
+	}
+	else
+	{
+		/* Check if the command exists in the PATH */
+		if (cmdExists(tokens[0]))
+		{
+			handleExternals(tokens);
+		}
+		else
+		{
+			printf("Command not found: %s\n", tokens[0]);
+		}
 	}
 	/* Free memory allocated for tokens */
 	for (i = 0; tokens[i] != NULL; i++)

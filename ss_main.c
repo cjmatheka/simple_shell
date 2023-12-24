@@ -25,7 +25,7 @@ int main(void)
 
 		if (read != -1)
 		{
-			line[strcspn(line, "\n")] = '\0';
+			line[_strcspn(line, "\n")] = '\0';
 
 			executeCommands(line);
 		}
