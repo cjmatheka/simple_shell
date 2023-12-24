@@ -17,6 +17,10 @@ void handleBuiltins(char **tokens)
 			chdir(tokens[1]);
 		chdir(".");
 	}
+	else if (_strcmp(tokens[0], "ls") == 0)
+	{
+		execve(tokens[0], tokens, environ);
+	}
 	else if (_strcmp(tokens[0], "pwd") == 0)
 	{
 		if (getcwd(cwd, sizeof(cwd)) != NULL)
