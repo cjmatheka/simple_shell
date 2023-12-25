@@ -9,7 +9,7 @@
 char **tokenizeInput(char *line)
 {
 	char *token, **tokens;
-	int count;
+	int count = 0;
 
 	/* Tokenize input */
 	token = _strtok(line, " ");
@@ -30,8 +30,6 @@ char **tokenizeInput(char *line)
 
 	/* Copy tokens to array */
 	do {
-		count = 0;
-
 		tokens[count] = _strdup(token);
 		count++;
 

@@ -50,11 +50,8 @@ void _ls(const char *path, const char *options);
 void _pwd(void);
 void _cd(const char *path);
 char *_strtok(char *str, const char *delimiters);
-void executeCommands(char *line);
+void executeCommands(char **tokens);
 void wait4child(void);
-int cmdExists(const char *command);
-void handleBuiltins(char **tokens);
-void handleExternals(char **tokens);
 char **tokenizeInput(char *line);
 
 #endif

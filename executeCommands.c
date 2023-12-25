@@ -5,45 +5,36 @@
  * @line: commands
  */
 
-void executeCommands(char *line)
+void executeCommands(char **tokens)
 {
-	char **tokens;
-	int i;
+	pid_t child_pid;
+	char bin_path[256];
 
-	/* Tokenize input */
-	tokens = tokenizeInput(line);
+	child_pid = fork();
 
-	if (tokens == NULL)
+	if (child_pid == -1)
 	{
-		return;
+		perror("Could not create a child process");
+		exit(EXIT_FAILURE);
 	}
-	/* Check if it's a built-in command and use system */
-	if (_strcmp(tokens[0], "pwd") == 0 || _strcmp(tokens[0], "cd") == 0
-	|| _strcmp(tokens[0], "clear") == 0 || _strcmp(tokens[0], "env") == 0 )
+	else if (child_pid == 0)
 	{
-		handleBuiltins(tokens);
-	}
-	else if (_strcmp(tokens[0], "exit") == 0)
-	{
-		exit(EXIT_SUCCESS);
+		if (_strcmp(tokens[0], "ls") == 0)
+		{
+			 /* Construct the full path to the executable in the /bin directory */
+			snprintf(bin_path, sizeof(bin_path), "/bin/listItems.sh");
+
+			/* Execute the command using execve */
+			execve(bin_path, tokens, environ);
+
+			/* If execve fails */
+			perror("Execution failed");
+			exit(EXIT_FAILURE);
+		}
 	}
 	else
 	{
-		/* Check if the command exists in the PATH */
-		if (cmdExists(tokens[0]))
-		{
-			handleExternals(tokens);
-		}
-		else
-		{
-			printf("Command not found: %s\n", tokens[0]);
-		}
+		wait4child();
 	}
-	/* Free memory allocated for tokens */
-	for (i = 0; tokens[i] != NULL; i++)
-	{
-		free(tokens[i]);
-	}
-	free(tokens);
 }
 

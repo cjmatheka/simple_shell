@@ -8,7 +8,8 @@
 
 int main(void)
 {
-	char *line;
+
+	char *line, **tokens = NULL;
 	size_t len;
 	ssize_t read;
 
@@ -25,9 +26,17 @@ int main(void)
 
 		if (read != -1)
 		{
-			line[_strcspn(line, "\n")] = '\0';
-
-			executeCommands(line);
+			tokens = tokenizeInput(line);
+			if (tokens != NULL)
+			{
+				executeCommands(tokens);
+				exit(EXIT_SUCCESS);
+			}
+			else
+			{
+				perror("No command found");
+				exit(EXIT_FAILURE);
+			}
 		}
 		else
 		{
