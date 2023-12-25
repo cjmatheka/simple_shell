@@ -1,40 +1,54 @@
 #include "main.h"
 
 /**
- * executeCommands - exeute commands
+ * executeCommands - execute commands
  * @line: commands
  */
 
 void executeCommands(char **tokens)
 {
-	pid_t child_pid;
-	char bin_path[256];
+	pid_t pid;
+	char **env_ptr = environ;
 
-	child_pid = fork();
 
-	if (child_pid == -1)
+	/* Check for the "exit" command */
+	if (_strcmp(tokens[0], "exit") == 0)
 	{
-		perror("Could not create a child process");
-		exit(EXIT_FAILURE);
+		write(STDOUT_FILENO, "\nExiting Shell\n", 15);
+		exit(EXIT_SUCCESS);
 	}
-	else if (child_pid == 0)
-	{
-		if (_strcmp(tokens[0], "ls") == 0)
+	else if (_strcmp(tokens[0], "env") == 0)
+	 {
+		while (*env_ptr != NULL)
 		{
-			 /* Construct the full path to the executable in the /bin directory */
-			snprintf(bin_path, sizeof(bin_path), "/bin/listItems.sh");
-
-			/* Execute the command using execve */
-			execve(bin_path, tokens, environ);
-
-			/* If execve fails */
-			perror("Execution failed");
-			exit(EXIT_FAILURE);
+			printf("%s\n", *env_ptr);
+			env_ptr++;
 		}
-	}
-	else
-	{
-		wait4child();
-	}
-}
+		return;
+	 }
 
+	 /* Fork a new process */
+	 pid = fork();
+
+	 if (pid == -1)
+	 {
+		 /* Error handling for fork failure */
+		 perror("fork");
+		 exit(EXIT_FAILURE);
+	 }
+	 else if (pid == 0)
+	 {
+		 /* Child process. Execute the command using execvp */
+		 if (execve(tokens[0], tokens, environ) == -1)
+		 {
+			 /* Handle command not found */
+			 perror("exec");
+			 exit(EXIT_FAILURE);
+		 }
+	 }
+	 else
+	 {
+		 /* Parent process. Wait for the child process to complete */
+		 wait4child();
+	 }
+}

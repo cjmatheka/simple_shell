@@ -28,4 +28,6 @@ add_executable(Simple_Shell
         shellEnv.c
         ss_main.c
         waitHelper.c
-        handleCommand.c)
+        handleCommand.c
+        tokenizeInput.c
+        tokenizeInput.c)

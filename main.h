@@ -3,7 +3,7 @@
 
 /* Defining the clear function */
 #define _clear() write(STDOUT_FILENO, "\033[H\033[J", 7)
-#define MAX_COMMAND_LENGTH 100
+#define MAX_INPUT_LENGTH 100
 #define MAX_ARGS 100
 #define MAX_LENGTH 1000
 #define MAX_COMMAND_LENGTH 100
@@ -33,6 +33,7 @@
 extern char **environ;
 typedef int64_t custom_time_t;
 
+
 /* The function prototypes are included here */
 void shell_init(void);
 int dollar_sign(void);
@@ -53,5 +54,6 @@ char *_strtok(char *str, const char *delimiters);
 void executeCommands(char **tokens);
 void wait4child(void);
 char **tokenizeInput(char *line);
+void listItems(const char *dir);
 
 #endif
