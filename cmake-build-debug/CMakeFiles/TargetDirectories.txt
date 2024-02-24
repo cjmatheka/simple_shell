@@ -1,3 +1,0 @@
-C:/Users/charles4data/Desktop/Tech ALX Africa - Software Engineering/Software Engineering Bootcamp/C Programming/0x16. C - Simple Shell/Simple Shell/cmake-build-debug/CMakeFiles/Simple_Shell.dir
-C:/Users/charles4data/Desktop/Tech ALX Africa - Software Engineering/Software Engineering Bootcamp/C Programming/0x16. C - Simple Shell/Simple Shell/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/charles4data/Desktop/Tech ALX Africa - Software Engineering/Software Engineering Bootcamp/C Programming/0x16. C - Simple Shell/Simple Shell/cmake-build-debug/CMakeFiles/rebuild_cache.dir
