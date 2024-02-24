@@ -24,12 +24,6 @@ int main(void)
 		input = getline(&line, &len, stdin);
 		if (input == -1)
 		{
-			if (feof(stdin))
-			{
-				printf("\n");
-			} else {
-				perror("getline");
-			}
 			break;
 		}
 
@@ -68,7 +62,7 @@ int main(void)
 			{
 				perror("./hsh");
 			}
-			exit(EXIT_FAILURE);
+			_exit(0);
 		}
 		else if (pid < 0)
 		{
