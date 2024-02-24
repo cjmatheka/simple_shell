@@ -10,7 +10,7 @@ int main(void)
 	char *line = NULL;
 	char *args[2];
 	size_t len;
-        ssize_t input, max_size;
+        ssize_t input;
 	pid_t pid;
 
 	status = 1;
@@ -20,15 +20,11 @@ int main(void)
 		fflush(stdout);
 
 		/* Read input from user */
-		max_size =100;
+		len = 0;
 		input = getline(&line, &len, stdin);
 		if (input == -1)
 		{
 			break;
-		}
-		else if (input >= max_size)
-		{
-			perror("Input too long");
 		}
 
 		len = strlen(line);
@@ -44,17 +40,16 @@ int main(void)
 		}
 
 
-
-		/* Tokenize to just get the command name */
-		args[0] = strtok(line, " ");
-		args[1] = NULL;
-
 		/* Fork a child process */
 		pid = fork();
 
 		if (pid == 0)
 		{
 			/* Child process */
+			args[0] = line;
+			args[1] = NULL;
+
+
 			if (execve(args[0], args, NULL) == -1)
 			{
 				perror("./hsh");
