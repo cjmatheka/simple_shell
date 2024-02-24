@@ -9,8 +9,6 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-#define MAX_LINE 100
-
 
 /* Functions prototypes*/
 int main(void);

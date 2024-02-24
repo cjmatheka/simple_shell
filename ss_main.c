@@ -4,14 +4,13 @@
 * main - Entry point for the project
 */
 
-
 int main(void)
 {
 	int status;
 	char *line = NULL;
 	char *args[2];
 	size_t len;
-        ssize_t input;
+        ssize_t input, max_size;
 	pid_t pid;
 
 	status = 1;
@@ -21,10 +20,15 @@ int main(void)
 		fflush(stdout);
 
 		/* Read input from user */
+		max_size =100;
 		input = getline(&line, &len, stdin);
 		if (input == -1)
 		{
 			break;
+		}
+		else if (input >= max_size)
+		{
+			perror("Input too long");
 		}
 
 		len = strlen(line);
