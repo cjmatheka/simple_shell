@@ -16,7 +16,7 @@ int main(void)
 	status = 1;
 	while (status)
 	{
-		printf("$ ");
+		write(STDOUT_FILENO, "Maosh$ ", 8);
 		fflush(stdout);
 
 		/* Read input from user */
