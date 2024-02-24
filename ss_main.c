@@ -25,7 +25,7 @@ int main(void)
 		if (input == -1)
 		{
 			perror("getline");
-			continue;
+			break;
 		}
 
 		len = strlen(line);
@@ -44,6 +44,8 @@ int main(void)
 		if (strcmp(line, "exit") == 0)
 		{
 			status = 0;
+			free(line);
+			_exit(status);
 			break;
 		}
 
@@ -59,7 +61,7 @@ int main(void)
 			/* Child process */
 			if (execve(args[0], args, NULL) == -1)
 			{
-				perror("./shell");
+				perror("./hsh");
 			}
 			exit(EXIT_FAILURE);
 		}
