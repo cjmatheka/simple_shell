@@ -39,14 +39,7 @@ int main(void)
 			continue;
 		}
 
-		/* Handle 'exit' command */
-		if (strcmp(line, "exit") == 0)
-		{
-			status = 0;
-			free(line);
-			_exit(status);
-			break;
-		}
+
 
 		/* Tokenize to just get the command name */
 		args[0] = strtok(line, " ");

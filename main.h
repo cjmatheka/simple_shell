@@ -14,6 +14,6 @@
 
 /* Functions prototypes*/
 int main(void);
-void _exit(int status);
+/*void _exit(int status); */
 
 #endif
