@@ -53,7 +53,7 @@ int main(void)
 			{
 				perror("./hsh");
 			}
-			_exit(0);
+			exit(0);
 		}
 		else if (pid < 0)
 		{
