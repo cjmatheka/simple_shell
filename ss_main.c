@@ -7,8 +7,7 @@
 int main(void)
 {
 	int status;
-	char *line = NULL;
-	char *args[2];
+	char *line = NULL, *args[2];
 	size_t len;
         ssize_t input;
 	pid_t pid;
