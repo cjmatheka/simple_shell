@@ -5,14 +5,13 @@
 */
 
 int main(void) {
-	int status, display_prompt;
+	int display_prompt;
 	char *line = NULL, *args[2];
 	size_t len;
 	ssize_t input;
 	pid_t pid;
 
-	status = 1;
-	while (status) {
+	while (1) {
 		display_prompt = 1;
 
 		if (isatty(STDIN_FILENO)) {
@@ -38,7 +37,6 @@ int main(void) {
 		if (strlen(line) == 0) {
 			continue;
 		}
-
 
 		/* Fork a child process */
 		pid = fork();
