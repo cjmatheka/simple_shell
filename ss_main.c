@@ -16,7 +16,7 @@ int main(void)
 	status = 1;
 	while (status)
 	{
-		write(STDOUT_FILENO, "Maosh$ ", 8);
+		write(STDOUT_FILENO, "hsh$ ", 6);
 		fflush(stdout);
 
 		/* Read input from user */
@@ -63,6 +63,7 @@ int main(void)
 		else
 		{
 			wait(NULL);
+			dup2(STDIN_FILENO, 0);
 		}
 	}
 	free(line);
