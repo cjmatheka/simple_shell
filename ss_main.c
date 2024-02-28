@@ -4,64 +4,62 @@
 * main - Entry point for the project
 */
 
-int main(void) {
-	int display_prompt;
-	char *line = NULL, *args[2];
-	size_t len;
-	ssize_t input;
+#define MAX_COMMAND_LENGTH 1024
+
+
+int main() {
+	char *command = NULL;
+	size_t bufsize = 0;
+	char prompt[] = "#Maosh$ ";
 	pid_t pid;
+	int status;
 
 	while (1) {
-		display_prompt = 1;
-
+		/* Display prompt */
 		if (isatty(STDIN_FILENO)) {
-			write(STDOUT_FILENO, "hsh$ ", 6);
+			write(STDOUT_FILENO, prompt, strlen(prompt));
 			fflush(stdout);
-		} else {
-			display_prompt = 0;
 		}
 
-		/* Read input from user */
-		len = 0;
-		input = getline(&line, &len, stdin);
-		if (input == -1) {
+		/* Read command from user using getline */
+		if (getline(&command, &bufsize, stdin) == -1) {
+			/* Handle EOF (Ctrl+D) */
 			break;
 		}
 
-		len = strlen(line);
-		if (line[len - 1] == '\n') {
-			line[len - 1] = '\0';
-		}
-
-		/* Skip empty lines */
-		if (strlen(line) == 0) {
-			continue;
-		}
+		/* Remove the newline character from the command */
+		command[strcspn(command, "\n")] = 0;
 
 		/* Fork a child process */
 		pid = fork();
 
-		if (pid == 0) {
+		if (pid == -1) {
+			/* Error occurred */
+			perror("fork");
+		} else if (pid == 0) {
 			/* Child process */
-			args[0] = line;
-			args[1] = NULL;
-
-
-			if (execve(args[0], args, NULL) == -1) {
-				perror("./hsh");
+			/* Execute the command */
+			if (execlp(command, command, (char *) NULL) == -1) {
+				/* If execution fails, print error and exit */
+				perror("exec");
+				exit(EXIT_FAILURE);
 			}
-			exit(0);
-		} else if (pid < 0) {
-			perror("./hsh");
 		} else {
-			wait(NULL);
-			if (display_prompt) {
-				dup2(STDIN_FILENO, 0);
+			/* Parent process */
+			/* Wait for child to terminate */
+
+			if (dup2(STDIN_FILENO, 0) == -1) {
+				perror("dup2");
+				exit(EXIT_FAILURE);
 			}
+
+			waitpid(pid, &status, 0);
+
 		}
 	}
-	free(line);
 
-	return (0);
+	/* Free dynamically allocated memory */
+	free(command);
 
+	return 0;
 }
