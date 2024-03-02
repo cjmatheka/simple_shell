@@ -7,12 +7,15 @@
 #define MAX_COMMAND_LENGTH 1024
 
 
-int main() {
+int main(int argc, char *argv[]) {
+	char *args[MAX_COMMAND_LENGTH];
 	char *command = NULL;
+	char *tokens;
 	size_t bufsize = 0;
 	char prompt[] = "#Maosh$ ";
 	pid_t pid;
-	int status;
+	int status, i;
+	(void)argc;
 
 	while (1) {
 		/* Display prompt */
@@ -30,31 +33,34 @@ int main() {
 		/* Remove the newline character from the command */
 		command[strcspn(command, "\n")] = 0;
 
-		/* Fork a child process */
-		pid = fork();
+		/* Tokenize the command */
+		tokens = strtok(command, ";");
 
-		if (pid == -1) {
-			/* Error occurred */
-			perror("fork");
-		} else if (pid == 0) {
-			/* Child process */
-			/* Execute the command */
-			if (execlp(command, command, (char *) NULL) == -1) {
-				/* If execution fails, print error and exit */
-				perror("exec");
-				exit(EXIT_FAILURE);
+		while (tokens != NULL) {
+			pid = fork();
+			if (pid == -1) {
+				perror("fork");
+			} else if (pid == 0) {
+				/* Child process */
+				args[0] = tokens;
+
+				i = 1;
+				while (argv[i] != NULL) {
+					args[i] = argv[i];
+					i++;
+				}
+				args[i] = NULL;
+
+				if (execve(tokens, args, NULL) == -1) {
+					perror("execve");
+					exit(EXIT_FAILURE);
+				}
+			} else {
+				/* Parent Process: waitpid ... */
+				waitpid(pid, &status, 0);
 			}
-		} else {
-			/* Parent process */
-			/* Wait for child to terminate */
 
-			if (dup2(STDIN_FILENO, 0) == -1) {
-				perror("dup2");
-				exit(EXIT_FAILURE);
-			}
-
-			waitpid(pid, &status, 0);
-
+			tokens = strtok(NULL, " ");
 		}
 	}
 

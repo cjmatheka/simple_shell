@@ -1,6 +1,7 @@
 #ifndef MAIN_H
 #define MAIN_H
 
+
 /* Standard libraries */
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,6 +12,6 @@
 
 
 /* Functions prototypes*/
-int main(void);
+int main(int argc, char *argv[]);
 
 #endif
