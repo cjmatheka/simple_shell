@@ -10,7 +10,9 @@ char *read_cmd() {
 
 
 	if (getline(&cmd, &bufsize, stdin) == -1) {
-		return (NULL);
+		if (feof(stdin)) {
+			return (NULL);
+		}
 	}
 	/*Remove newline*/
 	cmd[strcspn(cmd, "\n")] = 0;

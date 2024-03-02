@@ -7,7 +7,6 @@
 
 int main(int argc, char *argv[]) {
 	char *command = NULL;
-	char *args[MAX_COMMAND_LENGTH];
 	(void)argc;
 	(void)argv;
 
@@ -19,8 +18,7 @@ int main(int argc, char *argv[]) {
 			break;
 		}
 
-		parse_cmd(command, args);
-		execute_cmd(args);
+		execute_cmd(command);
 
 		free(command);
 		command = NULL;
