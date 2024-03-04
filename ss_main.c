@@ -5,23 +5,50 @@
 */
 
 
-int main(int argc, char *argv[]) {
-	char *command = NULL;
-	(void)argc;
-	(void)argv;
+int main(void) {
+	ssize_t length;
+	size_t size;
+	char *buffer = NULL, *value, *path;
+	list_path *head;
+	tokenized_data data;
+	void (*function)(char **);
 
+	size = 0;
+	head = NULL;
+
+	signal(SIGINT, handle_signal);
 	while (1) {
 		display_prompt();
-		command = read_cmd();
 
-		if (command == NULL) {
+		length = getline(&buffer, &size, stdin);
+		if (length == -1) {
 			break;
 		}
 
-		execute_cmd(command);
+		handle_eof(length, buffer);
 
-		free(command);
-		command = NULL;
+		data = tokenize_cmd(buffer, " \n");
+
+		if (!data.tokens_array || !data.tokens_array[0]) {
+			execute_cmd(data);
+		} else {
+			value = _getenv("PATH");
+			head = process_path(value);
+			path = _which(data.tokens_array[0], head);
+			function = isbuiltin(data.tokens_array);
+			if (function) {
+				free_tokenized_data(data);
+				function(data.tokens_array);
+			} else if (!path) {
+				execute_cmd(data);
+			} else {
+				free_tokenized_data(data);
+				data.tokens_array[0] = path;
+				execute_cmd(data);
+			}
+		}
+		free_tokenized_data(data);
 	}
+	free(buffer);
 	return (0);
 }

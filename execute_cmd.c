@@ -4,21 +4,9 @@
  * execute_cmd - Execute the command
  */
 
-void execute_cmd(char *command) {
-	char *args[MAX_COMMAND_LENGTH];
-	char *token;
+void execute_cmd(tokenized_data data) {
 	pid_t pid;
-	int i, status;
-
-	token = strtok(command, " ");
-	i = 0;
-
-	while (token != NULL && i < MAX_COMMAND_LENGTH) {
-		args[i] = token;
-		i++;
-		token = strtok(NULL, " ");
-	}
-	args[i] = NULL;
+	int status;
 
 	pid = fork();
 
@@ -26,7 +14,7 @@ void execute_cmd(char *command) {
 		perror("fork");
 	} else if (pid == 0) {
 		/* Child Process: Attempt execution */
-		if (execve(args[0], args, NULL) == -1) {
+		if (execve(data.tokens_array[0], data.tokens_array, NULL) == -1) {
 			perror("execve");
 		}
 		exit(EXIT_FAILURE);
