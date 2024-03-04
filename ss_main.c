@@ -18,6 +18,7 @@ int main(void) {
 
 	signal(SIGINT, handle_signal);
 	while (1) {
+
 		display_prompt();
 
 		length = getline(&buffer, &size, stdin);

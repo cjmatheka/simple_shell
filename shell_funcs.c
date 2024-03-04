@@ -5,7 +5,7 @@
  */
 void handle_signal(int signal_number) {
     if (signal_number == SIGINT) {
-        printf("\n#Maosh$ ");
+        _puts("\n#Maosh$ ");
         fflush(stdout);
     }
 }
@@ -28,7 +28,7 @@ void handle_eof(int length, char *buffer) {
  */
 void display_prompt(void) {
     if (isatty(STDIN_FILENO)) {
-        printf("#Maosh$ ");
+        _puts("#Maosh$ ");
         fflush(stdout);
     }
 }

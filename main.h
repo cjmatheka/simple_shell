@@ -47,6 +47,7 @@ typedef struct tokenized_data {
 
                                      /* FUNCTION PROTOTYPES */
 int main(void);
+void _isatty(void);
 void handle_signal(int signal_number);
 void display_prompt(void);
 void handle_eof(int length, char *buffer);
