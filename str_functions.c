@@ -7,21 +7,19 @@
  * Return: duplicated string.
  */
 char *_strdup(char *string) {
-	int i, length;
-	char *string_dup;
+    char *result;
+    size_t len;
 
-	if (!string)
-		return (NULL);
+    if (string == NULL)
+        return (NULL);
 
-	length = _strlen(string);
-	string_dup = malloc(length + 1);
-	if (!string_dup)
-		return (NULL);
+    len = strlen(string);
+    result = malloc(len + 1);
+    if (result == NULL)
+        return (NULL);
 
-	for (i = 0; i < length; i++)
-		string_dup[i] = string[i];
-
-	return (string_dup);
+    strcpy(result, string);
+    return (result);
 }
 
 /**
@@ -81,6 +79,7 @@ char *str_concat(int count, ...) {
 	for (i = 0; i < count; i++) {
 		char *arg = va_arg(args, char *);
 		strcat(result, arg);
+
 	}
 	va_end(args);
 

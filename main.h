@@ -25,6 +25,8 @@ typedef struct my_builtins
     void (*func)(char **);
 } my_builtins;
 
+typedef enum { false, true } bool;
+
 /**
  * struct list_path - data structure linked list
  * @dir: directory
@@ -51,7 +53,7 @@ void _isatty(void);
 void handle_signal(int signal_number);
 void display_prompt(void);
 void handle_eof(int length, char *buffer);
-void execute_cmd(tokenized_data data);
+void execute_cmd(tokenized_data data, list_path *head);
 tokenized_data tokenize_cmd(char *input_string, const char *delimiter);
 void *reallocate_mem(void *ptr, unsigned int old_size, unsigned int new_size);
 void free_tokenized_data(tokenized_data data);
@@ -73,6 +75,7 @@ char *_which(char *filename, list_path *head);
 list_path *adding_node(list_path **head, char *str);
 list_path *process_path(char *path);
 char *_getenv(const char *var_name);
+char *_handle_trailing_slash(char *string);
 
 
 #endif

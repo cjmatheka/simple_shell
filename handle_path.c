@@ -45,7 +45,9 @@ list_path *process_path(char *path) {
 		return (NULL);
 
 	token = strtok(cpath, ":");
+	printf("DEBUG: First token: %s\n", token);
 	while (token) {
+		printf("DEBUG: Extracted directory: %s\n", token);
 		head = adding_node(&head, token);
 		token = strtok(NULL, ":");
 	}
@@ -73,7 +75,7 @@ list_path *adding_node(list_path **head, char *str) {
 	if (!new_node)
 		return (NULL);
 
-	new_node->dir = str;
+	new_node->dir = _strdup(str);
 	new_node->p = NULL;
 
 	/* If head is NULL, make the new node the head */
@@ -98,24 +100,54 @@ list_path *adding_node(list_path **head, char *str) {
  * Return: first path where file is found
  */
 char *_which(char *filename, list_path *head) {
-	/* Declare variables */
 	struct stat st;
-	char *string;
-	list_path *tmp;
+	char *string = NULL;
+	list_path *tmp = head;
+	char *full_path;
 
-	/* Initialize variables */
-	tmp = head;
+	if (filename == NULL || head == NULL) {
+		printf("ERROR: Invalid arguments.\n");
+		return (NULL);
+	}
 
-	/* Concatenates directory, "/", and filename */
-	while (tmp) {
-		string = str_concat(3, tmp->dir, "/", filename);
-		if (stat(string, &st) == 0) {
-			return (string);
+	if (strchr(filename, '/') != NULL) {
+		string = str_concat(1, filename);
+		if (string == NULL) {
+			printf("ERROR: Memory allocation failed.\n");
+			return (NULL);
 		}
+		if (stat(string, &st) == 0) {
+			printf("DEBUG: Without a slash: %s\n", string);
+			return (string);
+		} else {
+			free(string);
+			return NULL;
+		}
+	}
+
+	while (tmp != NULL) {
+		string = _handle_trailing_slash(tmp->dir);
+		if (string == NULL) {
+			printf("ERROR: Memory allocation failed.\n");
+			return (NULL);
+		}
+		full_path = str_concat(2, string, filename);
 		free(string);
+		if (full_path == NULL) {
+			printf("ERROR: Memory allocation failed.\n");
+			return (NULL);
+		}
+		printf("DEBUG: Full path to check: %s\n", full_path);
+
+		if (stat(full_path, &st) == 0) {
+			printf("DEBUG: With a slash File found!: %s\n", full_path);
+			return (full_path);
+		} else {
+			printf("DEBUG: File not found.\n");
+		}
+		free(full_path);
 		tmp = tmp->p;
 	}
 
-	/* Return NULL if the file is not found in any directory */
 	return (NULL);
 }
