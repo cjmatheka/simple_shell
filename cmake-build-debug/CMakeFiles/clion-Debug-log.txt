@@ -1,1 +1,0 @@
-CMakeLists.txt not found in /home/cjweb/Desktop/Software Engineering/AlxAfricaSE/simple_shell Select CMakeLists.txt

@@ -4,7 +4,8 @@
  * execute_cmd - Execute the command
  */
 
-void execute_cmd(tokenized_data data, list_path *head) {
+void execute_cmd(tokenized_data data, list_path *head)
+{
     pid_t pid;
     int status;
     char *path;

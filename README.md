@@ -14,6 +14,16 @@ Some of the functions we used for this complex tasks included, but not limited t
 + Group work and collaboration,
 + Understanding of learning how to learn,
 
+## Project Usage
+The project can be used as follows:  
+**Step 1:** *Forking and Cloning the repository*
++ After forking the repository on github, you need to clone it into your local machine to start testing its functionality. Open the terminal, change directory to where you want to add the project, then clone with these commands
+```
+cd <options>
+
+git clone <forked project link>
+```  
+**Step 2:** *Testing the project functionality*
 ## Reflection
 Overall, this project provided much needed learning and collaborative experience.
 
