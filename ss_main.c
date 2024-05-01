@@ -12,11 +12,12 @@ int main(void) {
 	list_path *head;
 	tokenized_data data;
 	void (*function)(char **);
-
+	
 	size = 0;
 	head = NULL;
 
 	signal(SIGINT, handle_signal);
+
 	while (1) {
 
 		display_prompt();
@@ -27,19 +28,15 @@ int main(void) {
 		}
 
 		handle_eof(length, buffer);
-		printf("DEBUG: Raw User Input: %s\n", buffer);
 
 		data = tokenize_cmd(buffer, " ");
-		printf("DEBUG: First Token: %s\n", data.tokens_array[0]);
 
 		if (!data.tokens_array || !data.tokens_array[0]) {
 			execute_cmd(data, head);
 		} else {
 			value = _getenv("PATH");
-			printf("DEBUG: Raw PATH: %s\n", value);
 			head = process_path(value);
 			path = _which(data.tokens_array[0], head);
-			printf("DEBUG: Path returned by _which: %s\n", path);
 			function = isbuiltin(data.tokens_array);
 			if (function) {
 				free_tokenized_data(data);

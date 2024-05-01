@@ -103,7 +103,7 @@ char *_which(char *filename, list_path *head) {
 	struct stat st;
 	char *string = NULL;
 	list_path *tmp = head;
-	char *full_path;
+	char *full_path = NULL;
 
 	if (filename == NULL || head == NULL) {
 		printf("ERROR: Invalid arguments.\n");
@@ -116,17 +116,16 @@ char *_which(char *filename, list_path *head) {
 			printf("ERROR: Memory allocation failed.\n");
 			return (NULL);
 		}
-		if (stat(string, &st) == 0) {
-			printf("DEBUG: Without a slash: %s\n", string);
+		if (stat(full_path, &st) == 0 && st.st_mode & S_IXUSR) {
 			return (string);
-		} else {
-			free(string);
-			return NULL;
 		}
+		free(string);
 	}
+	prints("Debug: Full Path To Check: %s", full_path)
 
 	while (tmp != NULL) {
 		string = _handle_trailing_slash(tmp->dir);
+
 		if (string == NULL) {
 			printf("ERROR: Memory allocation failed.\n");
 			return (NULL);
@@ -137,13 +136,13 @@ char *_which(char *filename, list_path *head) {
 			printf("ERROR: Memory allocation failed.\n");
 			return (NULL);
 		}
-		printf("DEBUG: Full path to check: %s\n", full_path);
-
+        
 		if (stat(full_path, &st) == 0) {
-			printf("DEBUG: With a slash File found!: %s\n", full_path);
-			return (full_path);
+			printf("DEBUG: File found in Full Path: %s\n", full_path);
+            return(full_path);
 		} else {
 			printf("DEBUG: File not found.\n");
+			return (NULL);
 		}
 		free(full_path);
 		tmp = tmp->p;

@@ -20,7 +20,7 @@ void execute_cmd(tokenized_data data, list_path *head)
 
          if (path) {
              data.tokens_array[0] = path;
-             if (execve(data.tokens_array[0], data.tokens_array, NULL) == -1) {
+             if (execve(data.tokens_array[0], data.tokens_array, environ) == -1) {
                  perror("execve");
              }
              free(path);
